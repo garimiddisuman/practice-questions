@@ -1,4 +1,4 @@
-/*------------- Extract Even numbers from array --------------*/
+/*------------- 1) Extract Even numbers from array --------------*/
 const isEven = function (num) {
   return num % 2 === 0;
 };
@@ -9,7 +9,7 @@ const filterEvenNumbers = function (numbers) {
 
 console.log(filterEvenNumbers([1, 2, 3, 4, 5, 6]));
 
-/*-------------- words with more than 5 letters --------------*/
+/*-------------- 2) words with more than 5 letters --------------*/
 const isLongWord = function (threshold) {
   return function (string) {
     return string.length > threshold;
@@ -22,15 +22,21 @@ const filterLongWords = function (words) {
 
 console.log(filterLongWords(["apple", "banana", "kiwi", "grape"]));
 
-/*------------------- people older than 30 ------------------*/
-const olderThan = function (threshold) {
+/*------------------- 3) people older than 30 ------------------*/
+const isGreater = function (threshold) {
+  return function (num) {
+    return num > threshold;
+  };
+};
+
+const keyBasedComparator = function (threshold, key, fn) {
   return function (personDetails) {
-    return personDetails.age > threshold;
+    return fn(threshold)(personDetails[key]);
   };
 };
 
 const filterAdults = function (people) {
-  return people.filter(olderThan(30));
+  return people.filter(keyBasedComparator(30, 'age', isGreater));
 };
 
 console.log(filterAdults([
@@ -38,7 +44,7 @@ console.log(filterAdults([
   { name: "Bob", age: 35 }
 ]));
 
-/*------------------- people older than 30 ------------------*/
+/*------------------ 4) Active users ------------------*/
 const isActiveUser = function (personDetails) {
   return personDetails.active;
 };
@@ -52,20 +58,14 @@ console.log(filterActiveUsers([
   { username: "bob", active: false }
 ]));
 
-/*------------------- numbers greater than 10 ------------------*/
-const isGreater = function (threshold) {
-  return function (num) {
-    return num > threshold;
-  };
-};
-
+/*----------------- 5) numbers greater than 10 ------------------*/
 const filterNumbersGreaterThanTen = function (numbers) {
   return numbers.filter(isGreater(10));
 };
 
 console.log(filterNumbersGreaterThanTen([5, 12, 7, 18, 3]));
 
-/*------------------- books with more than 200 pages ------------------*/
+/*--------------- 6) books with more than 200 pages ------------------*/
 const isLongBook = function (book) {
   return isGreater(200)(book.pages);
 };
@@ -79,7 +79,7 @@ console.log(filterLongBooks([
   { title: "Book 2", pages: 250 }
 ]));
 
-/*------------------- users with incomplete profiles ------------------*/
+/*---------------- 7) users with incomplete profiles ------------------*/
 const isProfileComplete = function (personDetails) {
   return personDetails.profileComplete;
 };
@@ -99,19 +99,15 @@ console.log(filterIncompleteProfiles([
   { username: "bob", profileComplete: false }
 ]));
 
-/*------------------- students with grades above 80 ------------------*/
-const isHighGrade = function (student) {
-  return isGreater(80)(student.grade);
-};
-
+/*---------------- 8) students with grades above 80 ------------------*/
 const filterHighGrades = function (students) {
-  return students.filter(isHighGrade);
+  return students.filter(keyBasedComparator(80, 'grade', isGreater));
 };
 
 console.log(filterHighGrades([
   { name: "John", grade: 75 }, { name: "Jane", grade: 85 }]));
 
-/*----------------- students with grades above 80 ---------------*/
+/*-------------- 9) students with grades above 80 ---------------*/
 const isInStock = function (product) {
   return product.inStock;
 };
@@ -125,7 +121,7 @@ console.log(filterInStockProducts([
   { product: "banana", inStock: false }
 ]));
 
-/*--------- products with a price lower than the average ---------*/
+/*------ 10) products with a price lower than the average ---------*/
 const add = function (x, y) {
   return x + y;
 };
