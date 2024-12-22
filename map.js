@@ -70,8 +70,7 @@ const repeat = function (times) {
 };
 
 const doubleEveryChar = function (string) {
-  const charsArray = string.split('');
-  return charsArray.map(repeat(2)).join("");
+  return [...string].map((char) => char.repeat(2)).join('');
 };
 
 const doubleLettersOf = function (strings) {
@@ -276,30 +275,68 @@ const wordLengthsOf = function (strings) {
 console.log(wordLengthsOf(["apple pie", "banana split"]));
 
 /*----------- 22) find Word Lengths ------------------------*/
-// flatten nested arrays of [[1, [2, 3]], [4, [5, 6]]] => [[1, 2, 3], [4, 5, 6]]
 const flatArray = function (array) {
   return array.flatMap(function (array) { return array; });
 };
+
 const flattenedArraysOf = function (arrays) {
   return arrays.map(flatArray);
 };
 
 console.log(flattenedArraysOf([[1, [2, 3]], [4, [5, 6]]]));
 
+/*----------- 23) sort letters in array --------------------*/
+const sortString = function (string) {
+  return string.split('').sort().join('');
+};
 
-// sort letters in ["cat", "bat", "rat"] alphabetically => ["act", "abt", "art"]
-const sortedLettersOf = function (strings) { };
+const sortedLettersOf = function (strings) {
+  return strings.map(sortString);
+};
 
-// wrap strings in brackets ["apple", "banana"] => ["[apple]", "[banana]"]
-const wrappedStringsOf = function (strings) { };
+console.log(sortedLettersOf(["cat", "bat", "rat"]));
 
-// calculate areas from [{ width: 2, height: 3 }, { width: 4, height: 5 }] => [6, 20]
-const calculateAreas = function (rectangles) { };
+/*----------- 24) sort letters in array --------------------*/
+const wrapBrackets = function (string) {
+  return '[' + string + ']';
+};
 
-// extract boolean flags from [{ active: true }, { active: false }] => [true, false]
+const wrappedStringsOf = function (strings) {
+  return strings.map(wrapBrackets);
+};
+
+console.log(wrappedStringsOf(["apple", "banana"]));
+
+/*----------- 25) calculate areas of rectangle -----------------*/
+const areaOfRectagle = function (rectangle) {
+  return rectangle.width * rectangle.height;
+};
+
+const calculateAreas = function (rectangles) {
+  return rectangles.map(areaOfRectagle);
+};
+
+console.log(calculateAreas([{ width: 2, height: 3 }, { width: 4, height: 5 }]));
+
+/*----------- 26) Extract Booleans -----------------*/
+const extractFlags = function (objects) {
+  return objects.map(function (object) { return object.active; });
+};
+
+console.log(extractFlags([{ active: true }, { active: false }]));
+
+/*--- 26) calculate percentage contribution of each number -----*/
 
 // calculate percentage contribution of each number in [10, 20, 30] (relative to the total sum) => [16.67, 33.33, 50]
-const percentageContributions = function (numbers) { };
+const add = function (x, y) {
+  return x + y;
+};
+
+
+const percentageContributions = function (numbers) {
+  const sum = numbers.reduce(add, 0);
+  return numbers.map(contributionPercentage(sum));
+};
 
 // subtract the smallest number from each number in [3, 8, 1] => [2, 7, 0]
 const subtractMin = function (numbers) { };

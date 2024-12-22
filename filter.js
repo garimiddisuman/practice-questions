@@ -1,3 +1,9 @@
+const invert = function (fn) {
+  return function (...char) {
+    return !fn(...char);
+  };
+};
+
 /*------------- 1) Extract Even numbers from array --------------*/
 const isEven = function (num) {
   return num % 2 === 0;
@@ -30,8 +36,8 @@ const isGreater = function (threshold) {
 };
 
 const keyBasedComparator = function (threshold, key, fn) {
-  return function (personDetails) {
-    return fn(threshold)(personDetails[key]);
+  return function (details) {
+    return fn(threshold)(details[key]);
   };
 };
 
@@ -45,12 +51,8 @@ console.log(filterAdults([
 ]));
 
 /*------------------ 4) Active users ------------------*/
-const isActiveUser = function (personDetails) {
-  return personDetails.active;
-};
-
 const filterActiveUsers = function (users) {
-  return users.filter(isActiveUser);
+  return users.filter((user) => user.active);
 };
 
 console.log(filterActiveUsers([
@@ -66,12 +68,10 @@ const filterNumbersGreaterThanTen = function (numbers) {
 console.log(filterNumbersGreaterThanTen([5, 12, 7, 18, 3]));
 
 /*--------------- 6) books with more than 200 pages ------------------*/
-const isLongBook = function (book) {
-  return isGreater(200)(book.pages);
-};
-
 const filterLongBooks = function (books) {
-  return books.filter(isLongBook);
+  return books.filter(function (book) {
+    return book.pages > 200;
+  });
 };
 
 console.log(filterLongBooks([
@@ -80,18 +80,8 @@ console.log(filterLongBooks([
 ]));
 
 /*---------------- 7) users with incomplete profiles ------------------*/
-const isProfileComplete = function (personDetails) {
-  return personDetails.profileComplete;
-};
-
-const invert = function (fn) {
-  return function (char) {
-    return !fn(char);
-  };
-};
-
 const filterIncompleteProfiles = function (users) {
-  return users.filter(invert(isProfileComplete));
+  return users.filter((user) => !user.profileComplete);
 };
 
 console.log(filterIncompleteProfiles([
@@ -101,19 +91,15 @@ console.log(filterIncompleteProfiles([
 
 /*---------------- 8) students with grades above 80 ------------------*/
 const filterHighGrades = function (students) {
-  return students.filter(keyBasedComparator(80, 'grade', isGreater));
+  return students.filter((student) => student.grade > 80);
 };
 
 console.log(filterHighGrades([
   { name: "John", grade: 75 }, { name: "Jane", grade: 85 }]));
 
 /*-------------- 9) students with grades above 80 ---------------*/
-const isInStock = function (product) {
-  return product.inStock;
-};
-
 const filterInStockProducts = function (products) {
-  return products.filter(isInStock);
+  return products.filter((product) => product.inStock);
 };
 
 console.log(filterInStockProducts([
@@ -130,20 +116,17 @@ const getPrices = function (product) {
   return product.price;
 };
 
-const average = function (products) {
-  const sum = products.map(getPrices).reduce(add, 0);
+const average = function (products, prices) {
+  const sum = prices.reduce(add, 0);
+
   return sum / (products.length);
 };
 
-const isPriceLower = function (avg) {
-  return function (product) {
-    return !(isGreater(avg)(product.price));
-  };
-};
-
 const filterBelowAveragePrice = function (products) {
-  const avg = average(products);
-  return products.filter(isPriceLower(avg));
+  const prices = products.map(getPrices);
+  const avg = average(products, prices);
+
+  return products.filter((product) => product.price < avg);
 };
 
 console.log(filterBelowAveragePrice([
