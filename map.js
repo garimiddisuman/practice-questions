@@ -176,8 +176,7 @@ const concatUniqueChars = function (uniqueChars, char) {
 };
 
 const extractUniqueChars = function (string) {
-  const arrayOfChars = string.split('');
-  return arrayOfChars.reduce(concatUniqueChars, []).join('');
+  return [...string].reduce(concatUniqueChars, []).join('');
 };
 
 const uniqueCharactersOf = function (strings) {
@@ -294,32 +293,53 @@ const normalizeStringLengths = function (strings) {
 
 console.log(normalizeStringLengths(["cat", "elephant", "dog"]));
 
+/* 31) normalize strings by centering them based on the longest string length */
+const x = function (longestLength) {
+  return function (string) {
+    const start = Math.floor((longestLength - string.length) / 2);
+    return (' '.repeat(start) + string).padEnd(longestLength);
+  };
+};
 
+const centerJustifyStrings = function (strings) {
+  const longestWordLength = strings.reduce(isLongestWord, '').length;
 
-// normalize strings by centering them based on the longest string length in ["cat", "elephant", "dog"] => ["  cat   ", "elephant", "  dog   "]
-// (pad with spaces to justify to the center)
-const centerJustifyStrings = function (strings) { };
+  return strings.map(x(longestWordLength));
+};
 
-// scale all numbers proportionally so the largest number becomes 100 in [20, 50, 80] => [25, 62.5, 100]
-const scaleToMax100 = function (numbers) { };
+console.log(centerJustifyStrings(["cat", "elephant", "dog"]));
+console.log(centerJustifyStrings(["cat", "pradeep", "a"]));
 
-// map each number to the difference between it and the average of the array in [10, 20, 30] => [-10, 0, 10]
-const differencesFromMean = function (numbers) { };
+/* 32) map each number to the difference between it and the average 
+of the array in [10, 20, 30] => [-10, 0, 10] */
+const average = function (numbers) {
+  const sum = numbers.reduce(add, 0);
 
-// map each string to its frequency in ["apple", "banana", "apple", "apple", "banana"] => [3, 2, 3, 3, 2]
-const stringFrequencies = function (strings) { };
+  return sum / (numbers.length);
+};
 
-// mark the largest number in an array as true, others as false in [1, 3, 2] => [false, true, false]
-const markLargestNumber = function (numbers) { };
+const differencesFromMean = function (numbers) {
+  const avg = average(numbers);
 
-// sort strings by length first, and then alphabetically if lengths are equal in ["cat", "banana", "apple", "kiwi"] => ["cat", "kiwi", "apple", "banana"]
-// Steps: Sort by length, then by lexicographical order.
-const sortByLengthAndAlphabet = function (strings) { };
+  return numbers.map((number) => number - avg);
+};
 
-// find the difference between the max and min values, and then normalize the array based on this range in [10, 20, 30, 5] => [0.25, 0.75, 1, 0]
-// Steps: Find min, max, calculate range, then normalize each value.
-const normalizeByRange = function (numbers) { };
+console.log(differencesFromMean([10, 20, 30]));
 
-// calculate the percentage of each number relative to the total sum of the array, and then sort the percentages in descending order in [100, 200, 50, 25] => [50, 25, 12.5, 12.5]
-// Steps: Calculate sum, find percentage of each number, sort in descending order.
-const percentageOfTotalSorted = function (numbers) { };
+/*-- 33) mark the largest number in an array as true, others as false 
+in [1, 3, 2] => [false, true, false] -*/
+const markLargestNumber = function (numbers) {
+  const largest = numbers.reduce((num, big) => Math.max(big, num), -Infinity);
+  return numbers.map((num) => num === largest);
+};
+
+console.log(markLargestNumber([1, 3, 2]));
+
+/*-- 34) calculate the percentage of each number relative to the total sum of the array, and then sort the percentages in descending order in [100, 200, 50, 25] => [50, 25, 12.5, 12.5] --*/
+const percentageOfTotalSorted = function (numbers) {
+  const totalAmount = numbers.reduce(add, 0);
+  const percentOfNumber = numbers.map((number) => (number / totalAmount) * 100);
+  return percentOfNumber.sort((a, b) => b - a);
+};
+
+console.log(percentageOfTotalSorted([100, 200, 50, 25]));

@@ -196,3 +196,40 @@ const summarizeBookChapters = function (books) { };
 // [{name: "Concert", attendees: [{firstName: "John", lastName: "Doe"}, {firstName: "Jane", lastName: "Smith"}]}, {name: "Conference", attendees: [{firstName: "Bob", lastName: "Brown"}]}]
 // => [{name: "Concert", attendees: ["John Doe", "Jane Smith"]}, {name: "Conference", attendees: ["Bob Brown"]}]
 const getEventAttendees = function (events) { };
+
+// find the difference between the max and min values, and then normalize the array based on this range in [10, 20, 30, 5] => [0.25, 0.75, 1, 0]
+// Steps: Find min, max, calculate range, then normalize each value.
+const normalizeByRange = function (numbers) { };
+
+/*- 32) scale all numbers proportionally so the largest number becomes 100 -*/
+// scale all numbers proportionally so the largest number becomes 100 in [20, 50, 80] => [25, 62.5, 100]
+const scaleToMax100 = function (numbers) { };
+
+/* 33) map each string to its frequency in ["apple", "banana", 
+"apple", "apple", "banana"] => [3, 2, 3, 3, 2] */
+const count = function (item, strings) {
+  return strings.reduce((element, count) => { element === item ? count + 1 : count; }, 0);
+};
+
+const stringFrequencies = function (strings) {
+  const uniqueItems = strings.reduce(concatUniqueChars, []);
+  const uniqueItemsCount = uniqueItems.map((item) => count(item, strings));
+  return uniqueItemsCount;
+};
+
+/*-- 34) sort strings by length first, and then alphabetically 
+   if lengths are equal */
+// in ["cat", "banana", "apple", "kiwi"] => ["cat", "kiwi", "apple", "banana"]
+// Steps: Sort by length, then by lexicographical order.
+const sorting = function (string1, string2) {
+  if (string1.length === string2.length) {
+    return string1.charCodeAt() + string1.charCodeAt();
+  };
+
+  return 0;
+};
+
+const sortByLengthAndAlphabet = function (strings) {
+  const sortByLength = strings.sort((s1, s2) => s1.length - s2.length);
+  return sortByLength.sort(sorting);
+};
