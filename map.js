@@ -1,10 +1,12 @@
 /*------------- Squares of all Numbes in an array --------------*/
-const square = function (num) {
-  return Math.pow(num, 2);
+const power = function (exponent) {
+  return function (base) {
+    return Math.pow(base, exponent);
+  };
 };
 
 const squaresOf = function (numbers) {
-  return numbers.map(square);
+  return numbers.map(power(2));
 };
 
 console.log(squaresOf([1, 2, 3]));
@@ -60,17 +62,16 @@ console.log(reversedStringsOf(["", "a"]));
 const repeat = function (times) {
   return function (char) {
     return char.repeat(times);
-  }
+  };
 };
 
-const getDoubleLetters = function (string) {
+const doubleEveryChar = function (string) {
   const charsArray = string.split('');
-  charsArray.pop();
-  return charsArray.map(repeat(2)).join("") + string.at(-1);
+  return charsArray.map(repeat(2)).join("");
 };
 
 const doubleLettersOf = function (strings) {
-  return strings.map(getDoubleLetters);
+  return strings.map(doubleEveryChar);
 };
 
 console.log(doubleLettersOf(["cat", "dog", "bat"]));
@@ -129,7 +130,7 @@ console.log(joinedArraysOf([["a", "b"], ["c", "d"]]));
 const repeatString = function (times) {
   return function (string) {
     return string.repeat(times);
-  }
+  };
 };
 
 const repeatedStringsOf = function (strings) {
@@ -158,7 +159,7 @@ const isVowel = function (char) {
 const invert = function (fn) {
   return function (char) {
     return !fn(char);
-  }
+  };
 };
 
 const removeVowels = function (string) {
@@ -202,6 +203,7 @@ const reversedWordsOf = function (strings) {
 
 console.log(reversedWordsOf(["hello world", "goodbye moon"]));
 
+/*---------- Extract Unique Characters in string ---------------------*/
 // extract unique characters from ["apple", "banana", "grape"] => ["aple", "ban", "grap"]
 // Maintain the order of their first appearance in each string
 const uniqueCharactersOf = function (strings) { };
