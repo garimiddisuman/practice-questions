@@ -335,7 +335,9 @@ const markLargestNumber = function (numbers) {
 
 console.log(markLargestNumber([1, 3, 2]));
 
-/*-- 34) calculate the percentage of each number relative to the total sum of the array, and then sort the percentages in descending order in [100, 200, 50, 25] => [50, 25, 12.5, 12.5] --*/
+/*-- 34) calculate the percentage of each number relative to the 
+total sum of the array, and then sort the percentages in descending 
+order in [100, 200, 50, 25] => [50, 25, 12.5, 12.5] --*/
 const percentageOfTotalSorted = function (numbers) {
   const totalAmount = numbers.reduce(add, 0);
   const percentOfNumber = numbers.map((number) => (number / totalAmount) * 100);
