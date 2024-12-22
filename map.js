@@ -1,21 +1,61 @@
-// squares of [1, 2, 3] => [1, 4, 9]
-const squaresOf = function (numbers) { };
+/*------------------ Squares of all Numbes in an array -------------------*/
+const square = function (num) {
+  return Math.pow(num, 2);
+};
 
-// lengths of ["apple", "banana", "kiwi"] => [5, 6, 4]
-const lengthsOf = function (strings) { };
+const squaresOf = function (numbers) {
+  return numbers.map(square);
+};
 
-// uppercase of ["hello", "world"] => ["HELLO", "WORLD"]
-const uppercaseOf = function (strings) { };
+console.log(squaresOf([1, 2, 3]));
 
-// first characters of ["apple", "banana", "kiwi"] => ["a", "b", "k"]
-const firstCharactersOf = function (strings) { };
+/*------------- Lengths of each string in an array -----------------*/
+const lengthsOf = function (strings) {
+  return strings.map(function (string) { return string.length; });
+};
 
-// truth values of [0, 1, 2, 3] => [false, true, true, true]
-// Assume non-zero numbers are true, and zero is false
-const truthValuesOf = function (numbers) { };
+console.log(lengthsOf(["apple", "banana", "kiwi"]));
 
-// reverse strings of ["hello", "world"] => ["olleh", "dlrow"]
-const reversedStringsOf = function (strings) { };
+/*----------- All Strings into UpperCase in an array ---------------*/
+const uppercaseOf = function (strings) {
+  return strings.map(function (string) { return string.toUpperCase(); });
+};
+
+console.log(uppercaseOf(["hello", "world"]));
+console.log(uppercaseOf(["Suman", "garimiddi"]));
+
+
+/*---------------- First Chars of Each string --------------------*/
+const firstChar = function (string) {
+  return string === '' ? '' : string.at(0);
+};
+
+const firstCharactersOf = function (strings) {
+  return strings.map(firstChar);
+};
+
+console.log(firstCharactersOf(["apple", "banana", "kiwi"]));
+console.log(firstCharactersOf(["a", "", "k"]));
+
+/*---------------- Truth values of numbers ----------------------*/
+const truthValuesOf = function (numbers) {
+  return numbers.map(function (number) { return !(!number); });
+};
+
+console.log(truthValuesOf([0, 1, 2, 3]));
+console.log(truthValuesOf([-1, 0, 2, 3]));
+
+/*---------------- Reverse Strings of Array ----------------------*/
+const reversedString = function (string) {
+  return string.split("").reverse().join("");
+};
+
+const reversedStringsOf = function (strings) {
+  return strings.map(reversedString);
+};
+
+console.log(reversedStringsOf(["hello", "world"]));
+console.log(reversedStringsOf(["", "a"]));
 
 // double letters of ["cat", "dog", "bat"] => ["ccaat", "ddoog", "bbaatt"]
 const doubleLettersOf = function (strings) { };
