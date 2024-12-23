@@ -167,16 +167,16 @@ console.log(reversedWordsOf(["hello world", "goodbye moon"]));
 
 /*-------- 19) Extract Unique Characters in string --------------*/
 // -->  Maintain the order of their first appearance in each string
-const concatUniqueChars = function (uniqueChars, char) {
-  if (!uniqueChars.includes(char)) {
-    uniqueChars.push(char);
+const concatUniques = function (uniqueChars, element) {
+  if (!uniqueChars.includes(element)) {
+    uniqueChars.push(element);
   }
 
   return uniqueChars;
 };
 
 const extractUniqueChars = function (string) {
-  return [...string].reduce(concatUniqueChars, []).join('');
+  return [...string].reduce(concatUniques, []).join('');
 };
 
 const uniqueCharactersOf = function (strings) {
