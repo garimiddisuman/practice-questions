@@ -242,8 +242,11 @@ console.log(
   ])
 );
 
+/*-- 17) users who have posted more than the average number of posts ---*/
 // users who have posted more than the average number of posts [{username: "Alice", postCount: 5}, {username: "Bob", postCount: 8}, {username: "Charlie", postCount: 3}] => [{username: "Bob", postCount: 8}]
 const filterActiveUsersByPostCount = function (users) {};
+
+console.log();
 
 // filter people older than a certain age [{name: "Alice", age: 25}, {name: "Bob", age: 30}, {name: "Charlie", age: 22}] => [{name: "Bob", age: 30}]
 const filterByAge = function (people, age) {};
