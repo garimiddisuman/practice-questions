@@ -1,5 +1,5 @@
 /*-------------- calculate ranks (1-based, descending) for scores ------------*/
-const calculateRanks = function (objects) {
+const calculateRanks = (objects) => {
   const scores = objects.map(({ score }) => score);
   const sort = scores.sort((x, y) => y - x);
 

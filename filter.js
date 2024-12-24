@@ -102,9 +102,8 @@ console.log(
 );
 
 /*------------------- 11) students who passed all subjects -------------------*/
-const isAllPassed = function (student) {
-  return student.subjects.every((subject) => subject.passed);
-};
+const isAllPassed = (student) =>
+  student.subjects.every((subject) => subject.passed);
 
 const filterStudentsWithAllSubjectsPassed = (students) =>
   students.filter(({ subjects }) =>
@@ -134,6 +133,7 @@ console.log(
 const filterHighValueOrders = (orders) => {
   const amounts = orders.map(({ amount }) => amount);
   const avg = average(amounts);
+
   return orders.filter(({ amount }) => amount > avg);
 };
 
@@ -149,6 +149,7 @@ console.log(
 const filterTopRatedBooks = (books) => {
   const ratings = books.map(({ rating }) => rating);
   const avg = average(ratings);
+
   return books.filter(({ rating }) => rating > avg);
 };
 
@@ -161,10 +162,11 @@ console.log(
 );
 
 /*------------- 14) books with reviews higher than the average rating --------*/
-const filterHighSalaryEmployees = function (employees) {
-  const salaries = employees.map(getValueByKey("salary"));
-  const avg = average(employees, salaries);
-  return employees.filter((employee) => employee.salary > avg);
+const filterHighSalaryEmployees = (employees) => {
+  const salaries = employees.map(({ salary }) => salary);
+  const avg = average(salaries);
+
+  return employees.filter(({ salary }) => salary > avg);
 };
 
 console.log(
@@ -175,8 +177,8 @@ console.log(
   ])
 );
 
-/*--- 15) cities with a population higher than the median -----*/
-const getMedian = function (numbers) {
+/*---------- 15) cities with a population higher than the median -------------*/
+const getMedian = (numbers) => {
   if (numbers.length % 2 !== 0) {
     return numbers[Math.floor(numbers.length / 2)];
   }
@@ -185,10 +187,11 @@ const getMedian = function (numbers) {
   return (numbers[middleIndexes[0]] + numbers[middleIndexes[1]]) / 2;
 };
 
-const filterCitiesAboveMedianPopulation = function (cities) {
-  const populations = cities.map((city) => city.population);
+const filterCitiesAboveMedianPopulation = (cities) => {
+  const populations = cities.map(({ population }) => population);
   const sorted = populations.sort((x, y) => x - y);
   const median = getMedian(sorted);
+
   return cities.filter((city) => city.population > median);
 };
 
@@ -200,11 +203,12 @@ console.log(
   ])
 );
 
-/*--- 16) posts with more than the average number of likes -----*/
-const filterPopularPosts = function (posts) {
-  const likes = posts.map(getValueByKey("likes"));
-  const avg = average(posts, likes);
-  return posts.filter((post) => post.likes > avg);
+/*----------- 16) posts with more than the average number of likes -----------*/
+const filterPopularPosts = (posts) => {
+  const likes = posts.map(({ likes }) => likes);
+  const avg = average(likes);
+
+  return posts.filter(({ likes }) => likes > avg);
 };
 
 console.log(
@@ -215,20 +219,65 @@ console.log(
   ])
 );
 
-/*-- 17) users who have posted more than the average number of posts ---*/
-// users who have posted more than the average number of posts [{username: "Alice", postCount: 5}, {username: "Bob", postCount: 8}, {username: "Charlie", postCount: 3}] => [{username: "Bob", postCount: 8}]
-const filterActiveUsersByPostCount = function (users) {};
+/*----- 17) users who have posted more than the average number of posts ------*/
+const filterActiveUsersByPostCount = (users) => {
+  const postCounts = users.map(({ postCount }) => postCount);
+  const avg = average(postCounts);
 
-console.log();
+  return users.filter(({ postCount }) => postCount > avg);
+};
 
-// filter people older than a certain age [{name: "Alice", age: 25}, {name: "Bob", age: 30}, {name: "Charlie", age: 22}] => [{name: "Bob", age: 30}]
-const filterByAge = function (people, age) {};
+console.log(
+  filterActiveUsersByPostCount([
+    { username: "Alice", postCount: 5 },
+    { username: "Bob", postCount: 8 },
+    { username: "Charlie", postCount: 3 },
+  ])
+);
 
-// filter products that are cheaper than a given price [{name: "item1", price: 20}, {name: "item2", price: 50}, {name: "item3", price: 10}] => [{name: "item1", price: 20}, {name: "item3", price: 10}]
-const filterByPrice = function (products, price) {};
+/*------------ 18) filter people older than a certain age --------------------*/
+const filterByAge = (people, thresholdAge) =>
+  people.filter(({ age }) => age > thresholdAge);
 
-// filter students who scored above a certain grade in Math [{name: "John", grades: {math: 80, science: 90}}, {name: "Jane", grades: {math: 70, science: 85}}] => [{name: "John", grades: {math: 80, science: 90}}]
-const filterByMathGrade = function (students, grade) {};
+console.log(
+  filterByAge(
+    [
+      { name: "Alice", age: 25 },
+      { name: "Bob", age: 30 },
+      { name: "Charlie", age: 22 },
+    ],
+    24
+  )
+);
+
+/*------ 19) filter products that are cheaper than a given price -------------*/
+const filterByPrice = (products, thresholdPrice) =>
+  products.filter(({ price }) => price < thresholdPrice);
+
+console.log(
+  filterByPrice(
+    [
+      { name: "item1", price: 20 },
+      { name: "item2", price: 50 },
+      { name: "item3", price: 10 },
+    ],
+    21
+  )
+);
+
+/*------ 20) filter students who scored above a certain grade in Math --------*/
+const filterByMathGrade = (students, thresholdGrade) =>
+  students.filter(({ grades }) => grades.math > thresholdGrade);
+
+console.log(
+  filterByMathGrade(
+    [
+      { name: "John", grades: { math: 80, science: 90 } },
+      { name: "Jane", grades: { math: 70, science: 85 } },
+    ],
+    75
+  )
+);
 
 // filter events that occur before a certain date [{name: "Event1", date: "2024-12-01"}, {name: "Event2", date: "2024-11-15"}] => [{name: "Event2", date: "2024-11-15"}]
 const filterByDate = function (events, date) {};

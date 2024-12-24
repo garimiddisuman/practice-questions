@@ -336,7 +336,7 @@ console.log(centerJustifyStrings(["cat", "elephant", "dog"]));
 console.log(centerJustifyStrings(["cat", "pradeep", "a"]));
 
 /*---- 32) map each number to the difference between it and the 
-average of the array in [10, 20, 30] => [-10, 0, 10] ------------------------*/
+average of the array in [10, 20, 30] => [-10, 0, 10] -------------------------*/
 const average = function (numbers) {
   const sum = numbers.reduce(add, 0);
 
