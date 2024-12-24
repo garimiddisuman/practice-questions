@@ -1,47 +1,161 @@
-// calculate ranks (1-based, descending) for scores in [{ name: "Alice", score: 80 }, { name: "Bob", score: 100 }, { name: "Charlie", score: 90 }] => [2, 1, 3]
-const calculateRanks = function (objects) { };
+/*-------------- calculate ranks (1-based, descending) for scores ------------*/
+const calculateRanks = function (objects) {
+  const scores = objects.map(({ score }) => score);
+  const sort = scores.sort((x, y) => y - x);
 
-const extractFlags = function (objects) { };
+  return objects.map(({ score }) => sort.indexOf(score) + 1);
+};
 
-// concatenate first and last names from [{ firstName: "Alice", lastName: "Smith" }, { firstName: "Bob", lastName: "Brown" }] => ["Alice Smith", "Bob Brown"]
-const fullNames = function (objects) { };
+console.log(
+  calculateRanks([
+    { name: "Alice", score: 80 },
+    { name: "Bob", score: 100 },
+    { name: "Charlie", score: 90 },
+  ])
+);
 
-// calculate total prices from [{ price: 10, quantity: 2 }, { price: 5, quantity: 4 }] => [20, 20]
-// (price * quantity)
-const totalPrices = function (objects) { };
+/*-------------------- concatenate first and last names. ---------------------*/
+const fullNames = (objects) =>
+  objects.map(({ firstName, lastName }) => firstName + " " + lastName);
 
-// determine if a person is an adult from [{ name: "Alice", age: 17 }, { name: "Bob", age: 22 }] => [false, true]
-// (age >= 18)
-const isAdult = function (objects) { };
+console.log(
+  fullNames([
+    { firstName: "Alice", lastName: "Smith" },
+    { firstName: "Bob", lastName: "Brown" },
+  ])
+);
 
-// create abbreviations from [{ city: "New York", country: "USA" }, { city: "Los Angeles", country: "USA" }] => ["NY, USA", "LA, USA"]
-const abbreviations = function (objects) { };
+/*--------------- calculate total prices from price and quantity. ------------*/
+const totalPrices = (objects) =>
+  objects.map(({ price, quantity }) => price * quantity);
 
-// extract scores for math tests from [{ name: "Alice", scores: { math: 90, english: 85 } }, { name: "Bob", scores: { math: 80, english: 75 } }] => [90, 80]
-const mathScores = function (objects) { };
+console.log(
+  totalPrices([
+    { price: 10, quantity: 2 },
+    { price: 5, quantity: 4 },
+  ])
+);
 
-// extract coordinates from [{ x: 1, y: 2 }, { x: 3, y: 4 }] => [[1, 2], [3, 4]]
-const extractCoordinates = function (objects) { };
+/*--------- determine if a person is an adult from name and age. -------------*/
+const isAdult = (objects) => objects.map(({ age }) => age >= 18);
 
-// extract full name and age from [{ firstName: "Alice", lastName: "Smith", age: 25 }, { firstName: "Bob", lastName: "Brown", age: 30 }] => [["Alice Smith", 25], ["Bob Brown", 30]]
-const fullNameAndAge = function (objects) { };
+console.log(
+  isAdult([
+    { name: "Alice", age: 17 },
+    { name: "Bob", age: 22 },
+  ])
+);
 
-// extract scores from [{ name: "Alice", scores: { math: 90, english: 85 } }, { name: "Bob", scores: { math: 80, english: 75 } }] => [[90, 85], [80, 75]]
-const extractScores = function (objects) { };
+/*----------- create abbreviations..--> Andhra Pradesh --> AP. ---------------*/
+const getCapitalChars = (word) => {
+  const abbrevation = [...word]
+    .filter((char) => char === char.toUpperCase())
+    .join("");
 
-// extract key-value pairs from [{ key: "a", value: 1 }, { key: "b", value: 2 }] => [["a", 1], ["b", 2]]
-const keyValuePairs = function (objects) { };
+  return abbrevation.split(" ").join("");
+};
 
-// split full names into first and last names from [{ name: "Alice Smith" }, { name: "Bob Brown" }] => [["Alice", "Smith"], ["Bob", "Brown"]]
-const splitFullNames = function (objects) { };
+const abbreviations = (objects) => {
+  const strings = objects.flatMap((object) => Object.values(object));
+  return strings.map(getCapitalChars);
+};
 
-// normalize scores so they fall between 0 and 1 based on the max score from [{ name: "Alice", score: 80 }, { name: "Bob", score: 100 }] => [0.8, 1]
-const normalizeScores = function (objects) { };
+console.log(
+  abbreviations([
+    { city: "New York", country: "USA" },
+    { city: "Los Angeles", country: "USA" },
+  ])
+);
 
-// normalize scores based on a curve: first find the max score, then subtract the mean, and scale the results to a range of 0-100 in [{ name: "Alice", score: 80 }, { name: "Bob", score: 100 }, { name: "Charlie", score: 90 }] => [60, 100, 80]
-// Steps: Find max score, calculate mean, normalize each score.
-const normalizeWithCurve = function (objects) { };
+/*--------------------- extract scores for math tests . ----------------------*/
+const mathScores = (objects) => objects.map(({ scores: { math } }) => math);
 
-// group students by their grades: first categorize them into A, B, C, and so on, then map each student to their respective category in [{ name: "Alice", grade: 85 }, { name: "Bob", grade: 92 }] => [['Alice', 'B'], ['Bob', 'A']]
-// Steps: Categorize grades, then group students by category.
-const groupByGrade = function (objects) { };
+console.log(
+  mathScores([
+    { name: "Alice", scores: { math: 90, english: 85 } },
+    { name: "Bob", scores: { math: 80, english: 75 } },
+  ])
+);
+
+/*------------------------------- extract coordinates. -----------------------*/
+const extractCoordinates = (objects) => objects.map(({ x, y }) => [x, y]);
+
+console.log(
+  extractCoordinates([
+    { x: 1, y: 2 },
+    { x: 3, y: 4 },
+  ])
+);
+
+/*-------------------------- extract full name and age..----------------------*/
+const fullNameAndAge = (objects) =>
+  objects.map(({ firstName, lastName, age }) => [
+    firstName + " " + lastName,
+    age,
+  ]);
+
+console.log(
+  fullNameAndAge([
+    { firstName: "Alice", lastName: "Smith", age: 25 },
+    { firstName: "Bob", lastName: "Brown", age: 30 },
+  ])
+);
+
+/*-------------------------------- extract scores ..--------------------------*/
+const extractScores = (objects) =>
+  objects.map(({ scores: { math, english } }) => [math, english]);
+
+console.log(
+  extractScores([
+    { name: "Alice", scores: { math: 90, english: 85 } },
+    { name: "Bob", scores: { math: 80, english: 75 } },
+  ])
+);
+
+/*------------------------ extract key-value pairs...-------------------------*/
+const keyValuePairs = (objects) =>
+  objects.map(({ key, value }) => [key, value]);
+
+console.log(
+  keyValuePairs([
+    { key: "a", value: 1 },
+    { key: "b", value: 2 },
+  ])
+);
+
+/*------------ split full names into first and last names --------------------*/
+const splitFullNames = (objects) => objects.map(({ name }) => name.split(" "));
+
+console.log(splitFullNames([{ name: "Alice Smith" }, { name: "Bob Brown" }]));
+
+/*--- normalize scores so they fall between 0 and 1 based on the max score ---*/
+const normalizeScores = (objects) => objects.map(({ score }) => score / 100);
+
+console.log(
+  normalizeScores([
+    { name: "Alice", score: 80 },
+    { name: "Bob", score: 100 },
+  ])
+);
+
+/*------- group students by their grades: first categorize them into A, B, C,
+ and so on, then map each student to their respective category ---------------*/
+const groupByGrade = (objects) => {
+  const gradesInDescending = objects
+    .map(({ grade }) => grade)
+    .sort((x, y) => y - x);
+
+  return objects.map(({ name, grade }) => [
+    name,
+    String.fromCharCode(gradesInDescending.indexOf(grade) + 65),
+  ]);
+};
+
+console.log(
+  groupByGrade([
+    { name: "Alice", grade: 85 },
+    { name: "Bob", grade: 92 },
+    { name: "suman", grade: 100 },
+    { name: "charan", grade: 80 },
+  ])
+);
