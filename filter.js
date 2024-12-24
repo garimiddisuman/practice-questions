@@ -1,27 +1,15 @@
-const invert = function (fn) {
-  return function (...char) {
-    return !fn(...char);
-  };
-};
-
-/*--------- 1) Extract Even numbers from array --------------*/
-const filterEvenNumbers = function (numbers) {
-  return numbers.filter((num) => num & 2);
-};
+/*------------------ 1) Extract Even numbers from array ----------------------*/
+const filterEvenNumbers = (numbers) => numbers.filter((num) => num & 2);
 
 console.log(filterEvenNumbers([1, 2, 3, 4, 5, 6]));
 
-/*---------- 2) words with more than 5 letters --------------*/
-const filterLongWords = function (words) {
-  return words.filter((string) => string.length > 5);
-};
+/*------------------- 2) words with more than 5 letters ----------------------*/
+const filterLongWords = (words) => words.filter((string) => string.length > 5);
 
 console.log(filterLongWords(["apple", "banana", "kiwi", "grape"]));
 
-/*------------- 3) people older than 30 ------------------*/
-const filterAdults = function (people) {
-  return people.filter((person) => person.age > 30);
-};
+/*------------------------ 3) people older than 30 ---------------------------*/
+const filterAdults = (people) => people.filter(({ age }) => age > 30);
 
 console.log(
   filterAdults([
@@ -30,10 +18,8 @@ console.log(
   ])
 );
 
-/*------------------ 4) Active users ------------------*/
-const filterActiveUsers = function (users) {
-  return users.filter((user) => user.active);
-};
+/*---------------------------------- 4) Active users -------------------------*/
+const filterActiveUsers = (users) => users.filter(({ active }) => active);
 
 console.log(
   filterActiveUsers([
@@ -42,17 +28,14 @@ console.log(
   ])
 );
 
-/*------------- 5) numbers greater than 10 ------------------*/
-const filterNumbersGreaterThanTen = function (numbers) {
-  return numbers.filter((num) => num > 10);
-};
+/*-------------------------- 5) numbers greater than 10 ----------------------*/
+const filterNumbersGreaterThanTen = (numbers) =>
+  numbers.filter((num) => num > 10);
 
 console.log(filterNumbersGreaterThanTen([5, 12, 7, 18, 3]));
 
-/*----------- 6) books with more than 200 pages ------------------*/
-const filterLongBooks = function (books) {
-  return books.filter((book) => book.pages > 200);
-};
+/*------------------- 6) books with more than 200 pages ----------------------*/
+const filterLongBooks = (books) => books.filter(({ pages }) => pages > 200);
 
 console.log(
   filterLongBooks([
@@ -61,10 +44,9 @@ console.log(
   ])
 );
 
-/*----------- 7) users with incomplete profiles ------------------*/
-const filterIncompleteProfiles = function (users) {
-  return users.filter((user) => !user.profileComplete);
-};
+/*---------------- 7) users with incomplete profiles -------------------------*/
+const filterIncompleteProfiles = (users) =>
+  users.filter((user) => !user.profileComplete);
 
 console.log(
   filterIncompleteProfiles([
@@ -73,10 +55,9 @@ console.log(
   ])
 );
 
-/*------------ 8) students with grades above 80 ------------------*/
-const filterHighGrades = function (students) {
-  return students.filter((student) => student.grade > 80);
-};
+/*------------------ 8) students with grades above 80 ------------------------*/
+const filterHighGrades = (students) =>
+  students.filter(({ grade }) => grade > 80);
 
 console.log(
   filterHighGrades([
@@ -85,10 +66,9 @@ console.log(
   ])
 );
 
-/*-------------- 9) students with grades above 80 ---------------*/
-const filterInStockProducts = function (products) {
-  return products.filter((product) => product.inStock);
-};
+/*---------------------- 9) students with grades above 80 --------------------*/
+const filterInStockProducts = (products) =>
+  products.filter(({ inStock }) => inStock);
 
 console.log(
   filterInStockProducts([
@@ -97,28 +77,20 @@ console.log(
   ])
 );
 
-/*------ 10) products with a price lower than the average ---------*/
-const add = function (x, y) {
-  return x + y;
+/*------------- 10) products with a price lower than the average -------------*/
+const add = (x, y) => x + y;
+
+const average = (numbers) => {
+  const sum = numbers.reduce(add, 0);
+
+  return sum / numbers.length;
 };
 
-const getValueByKey = function (key) {
-  return function (product) {
-    return product[key];
-  };
-};
+const filterBelowAveragePrice = (products) => {
+  const prices = products.map(({ price }) => price);
+  const avg = average(prices);
 
-const average = function (products, prices) {
-  const sum = prices.reduce(add, 0);
-
-  return sum / products.length;
-};
-
-const filterBelowAveragePrice = function (products) {
-  const prices = products.map(getValueByKey("prices"));
-  const avg = average(products, prices);
-
-  return products.filter((product) => product.price < avg);
+  return products.filter(({ price }) => price < avg);
 };
 
 console.log(
@@ -129,14 +101,15 @@ console.log(
   ])
 );
 
-/*--------- 11) students who passed all subjects ---------------*/
+/*------------------- 11) students who passed all subjects -------------------*/
 const isAllPassed = function (student) {
   return student.subjects.every((subject) => subject.passed);
 };
 
-const filterStudentsWithAllSubjectsPassed = function (students) {
-  return students.filter(isAllPassed);
-};
+const filterStudentsWithAllSubjectsPassed = (students) =>
+  students.filter(({ subjects }) =>
+    subjects.every((subject) => subject.passed)
+  );
 
 console.log(
   filterStudentsWithAllSubjectsPassed([
@@ -157,11 +130,11 @@ console.log(
   ])
 );
 
-/*--------- 12) students who passed all subjects ---------------*/
-const filterHighValueOrders = function (orders) {
-  const amounts = orders.map(getValueByKey("amount"));
-  const avg = average(orders, amounts);
-  return orders.filter((order) => order.amount > avg);
+/*--------- 12) products with a amount higher than the average  --------------*/
+const filterHighValueOrders = (orders) => {
+  const amounts = orders.map(({ amount }) => amount);
+  const avg = average(amounts);
+  return orders.filter(({ amount }) => amount > avg);
 };
 
 console.log(
@@ -172,11 +145,11 @@ console.log(
   ])
 );
 
-/*--- 13) books with reviews higher than the average rating -----*/
-const filterTopRatedBooks = function (books) {
-  const ratings = books.map(getValueByKey("rating"));
-  const avg = average(books, ratings);
-  return books.filter((book) => book.rating > avg);
+/*--------- 13) books with reviews higher than the average rating ------------*/
+const filterTopRatedBooks = (books) => {
+  const ratings = books.map(({ rating }) => rating);
+  const avg = average(ratings);
+  return books.filter(({ rating }) => rating > avg);
 };
 
 console.log(
@@ -187,7 +160,7 @@ console.log(
   ])
 );
 
-/*--- 14) books with reviews higher than the average rating -----*/
+/*------------- 14) books with reviews higher than the average rating --------*/
 const filterHighSalaryEmployees = function (employees) {
   const salaries = employees.map(getValueByKey("salary"));
   const avg = average(employees, salaries);
