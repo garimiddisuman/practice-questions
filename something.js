@@ -1,4 +1,4 @@
-// const symobls = ["/\\", "\\/", "/ /", "\\ \\", "/ \\", "\\ /"];
+// const symobls = ["/\\", "\\/"];
 
 // const randomSymbol = () => symobls[Math.floor(Math.random() * symobls.length)];
 
@@ -13,21 +13,19 @@
 
 // console.log(generatePattern(20, 30));
 
-const getGrade = (marks) => {
-  const gradesList = [
-    [90, 100],
-    [80, 90],
-    [70, 80],
-    [60, 70],
-    [0, 70],
-  ];
+// mergeObjects([{ a: 1, b: 2 }, { b: 3, c: 4 }, { a: 5 }])
+// => { a: 6, b: 5, c: 4 }
 
-  const index = gradesList.findIndex(
-    (array) => array[0] <= marks && array[1] >= marks
-  );
+const merge = function (merged, object) {
+  for (const key in object) {
+    merged[key] = (merged[key] || 0) + object[key];
+  }
 
-  return String.fromCharCode(index + 65);
+  return merged;
 };
 
-console.log(getGrade(100));
-// console.log(getGrade(90));
+const mergeObjects = function (objects) {
+  return objects.reduce(merge, {});
+};
+
+console.log(mergeObjects([{ a: 1, b: 2 }, { b: 3, c: 4 }, { a: 5 }]));
