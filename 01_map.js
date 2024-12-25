@@ -355,6 +355,7 @@ console.log(differencesFromMean([10, 20, 30]));
 in [1, 3, 2] => [false, true, false] -*/
 const markLargestNumber = function (numbers) {
   const largest = numbers.reduce((num, big) => Math.max(big, num), -Infinity);
+
   return numbers.map((num) => num === largest);
 };
 
@@ -366,6 +367,7 @@ order in [100, 200, 50, 25] => [50, 25, 12.5, 12.5] --------------------------*/
 const percentageOfTotalSorted = function (numbers) {
   const totalAmount = numbers.reduce(add, 0);
   const percentOfNumber = numbers.map((number) => (number / totalAmount) * 100);
+
   return percentOfNumber.sort((a, b) => b - a);
 };
 
