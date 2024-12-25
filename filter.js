@@ -439,14 +439,16 @@ console.log(
   )
 );
 
-// Calculate the length of each name, then filter for names longer than a given number [{name: "Alice"}, {name: "Bob"}] => [{name: "Alice"}]
-const filterLongNames = function (people, minLength) {};
+/*--- 31) Calculate the length of each name, then filter for -------------------
+--------- names longer than a given number -----------------------------------*/
+const filterLongNames = (people, minLength) =>
+  people.filter(({ name }) => name.length > minLength);
 
-// Normalize scores to a standard range, then filter for students who passed [{name: "John", score: 50}, {name: "Jane", score: 80}] => [{name: "Jane", score: 80}]
-const filterNormalizedScores = function (students, minScore) {};
+console.log(filterLongNames([{ name: "Alice" }, { name: "Bob" }], 4));
 
 // Convert book publication dates, then filter for books published after a given year [{title: "Book1", year: 2020}, {title: "Book2", year: 2022}] => [{title: "Book2", year: 2022}]
-const filterRecentBooks = function (books, yearThreshold) {};
+const filterRecentBooks = (books, yearThreshold) =>
+  books.filter(({ year }) => year > thresholdYear);
 
 // Count the number of posts for each user, then filter for users with more than a specific number of posts [{username: "Alice", posts: 100}, {username: "Bob", posts: 50}] => [{username: "Alice", posts: 100}]
 const filterActivePosters = function (users, postThreshold) {};

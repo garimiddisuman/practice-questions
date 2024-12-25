@@ -140,16 +140,24 @@ console.log(
 
 /*------- group students by their grades: first categorize them into A, B, C,
  and so on, then map each student to their respective category ---------------*/
-const groupByGrade = (objects) => {
-  const gradesInDescending = objects
-    .map(({ grade }) => grade)
-    .sort((x, y) => y - x);
+const getGrade = (marks) => {
+  const gradesList = [
+    [90, 100],
+    [80, 90],
+    [70, 80],
+    [60, 70],
+    [0, 70],
+  ];
 
-  return objects.map(({ name, grade }) => [
-    name,
-    String.fromCharCode(gradesInDescending.indexOf(grade) + 65),
-  ]);
+  const index = gradesList.findIndex(
+    (array) => array[0] <= marks && array[1] >= marks
+  );
+
+  return String.fromCharCode(index + 65);
 };
+
+const groupByGrade = (objects) =>
+  objects.map(({ name, grade }) => [name, getGrade(grade)]);
 
 console.log(
   groupByGrade([
