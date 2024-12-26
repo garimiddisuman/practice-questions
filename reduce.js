@@ -245,14 +245,10 @@ const groupByLength = function (strings) {
 
 console.log(groupByLength(["apple", "banana", "cherry", "date"]));
 
-// countOccurrences(["apple", "banana", "cherry", "banana"]) => { apple: 1, banana: 2, cherry: 1 }
+// countOccurrences(["apple", "banana", "cherry", "banana"]) =>
+// { apple: 1, banana: 2, cherry: 1 }
 const occurancesCount = function (object, element) {
-  if (!object[element]) {
-    object[element] = 1;
-    return object;
-  }
-
-  object[element] = object[element] + 1;
+  object[element] = (object[element] || 0) + 1;
   return object;
 };
 
@@ -488,14 +484,14 @@ const findMax = function (numbers) {
 console.log(findMax([1, 2, 3, 4, 5]));
 
 // cumulativeSum([1,2,3,4]) => [1, 3, 6, 10]
-const cumSum = function (array, num) {
+const runningTotal = function (array, num) {
   const last = array.at(-1) || 0;
   array.push(num + last);
   return array;
 };
 
 const cumulativeSum = function (numbers) {
-  return numbers.reduce(cumSum, []);
+  return numbers.reduce(runningTotal, []);
 };
 
 console.log(cumulativeSum([1, 2, 3, 4]));

@@ -15,17 +15,3 @@
 
 // mergeObjects([{ a: 1, b: 2 }, { b: 3, c: 4 }, { a: 5 }])
 // => { a: 6, b: 5, c: 4 }
-
-const merge = function (merged, object) {
-  for (const key in object) {
-    merged[key] = (merged[key] || 0) + object[key];
-  }
-
-  return merged;
-};
-
-const mergeObjects = function (objects) {
-  return objects.reduce(merge, {});
-};
-
-console.log(mergeObjects([{ a: 1, b: 2 }, { b: 3, c: 4 }, { a: 5 }]));
