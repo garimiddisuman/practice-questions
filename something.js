@@ -1,17 +1,16 @@
-// const symobls = ["/\\", "\\/"];
+const line1 = (index) => ["/ ", " \\"].at(index);
+const line2 = (index) => [" /", "\\ "].at(index);
+const random = () => Math.floor(Math.random() * 2);
 
-// const randomSymbol = () => symobls[Math.floor(Math.random() * symobls.length)];
+const generatePattern = (height, width) => {
+  let pattern = [];
 
-// const getColumns = (column) =>
-//   Array(column)
-//     .fill(0)
-//     .map((_) => randomSymbol())
-//     .join("");
+  for (let i = 0; i < height; i++) {
+    const row = Array(width).fill(0).map(random);
+    pattern.push(row.map(line1).join(""), row.map(line2).join(""));
+  }
 
-// const generatePattern = (rows, cols) =>
-//   Array(rows).fill(cols).map(getColumns).join("\n");
+  return pattern.join("\n");
+};
 
-// console.log(generatePattern(20, 30));
-
-// mergeObjects([{ a: 1, b: 2 }, { b: 3, c: 4 }, { a: 5 }])
-// => { a: 6, b: 5, c: 4 }
+console.log(generatePattern(10, 20));

@@ -142,10 +142,10 @@ console.log(
  and so on, then map each student to their respective category ---------------*/
 const getGrade = (marks) => {
   const gradesList = [
-    [90, 100],
-    [80, 90],
-    [70, 80],
-    [60, 70],
+    [91, 100],
+    [81, 90],
+    [71, 80],
+    [61, 70],
     [0, 70],
   ];
 
