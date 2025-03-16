@@ -3,7 +3,7 @@ const line2 = (index) => [" /", "\\ "].at(index);
 const random = () => Math.floor(Math.random() * 2);
 
 const generatePattern = (height, width) => {
-  let pattern = [];
+  const pattern = [];
 
   for (let i = 0; i < height; i++) {
     const row = Array(width).fill(0).map(random);

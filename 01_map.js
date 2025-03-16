@@ -1,5 +1,5 @@
 /*------------ 1) Squares of all Numbes in an array --------------------------*/
-const squaresOf = function (numbers) {
+export const squaresOf = function (numbers) {
   return numbers.map((num) => num * num);
 };
 
